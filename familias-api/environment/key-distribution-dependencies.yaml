@@ -1,0 +1,11 @@
+---
+- name: Repo's key distribution dependencies installation
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Key distribution dependencies installation
+      apt:
+        name: [ "apt-transport-https", "ca-certificates", "curl", "gnupg-agent", "software-properties-common" ]
+        state: present

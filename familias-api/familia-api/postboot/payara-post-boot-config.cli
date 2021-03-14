@@ -1,0 +1,5 @@
+create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGSimpleDataSource --restype javax.sql.DataSource moa-pool
+set resources.jdbc-connection-pool.moa-pool.property.password=postgres resources.jdbc-connection-pool.moa-pool.property.databaseName=moa resources.jdbc-connection-pool.moa-pool.property.serverName=db resources.jdbc-connection-pool.moa-pool.property.user=postgres resources.jdbc-connection-pool.moa-pool.property.portNumber=5432
+
+create-jdbc-resource --enabled=true --poolName=moa-pool --target=domain jdbc/moa-db
+create-resource-ref --enabled=true --target=server jdbc/moa-db

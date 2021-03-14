@@ -1,0 +1,30 @@
+---
+- name: Docker provisioning on Debian buster
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Docker repo key
+      apt_key:
+        id: 0EBFCD88
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: Docker repo installation
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/debian  buster stable"
+        state: present
+
+    - name: Docker installation
+      apt:
+        name: ["docker-ce", "docker-ce-cli", "containerd.io"]
+        state: present
+
+    - name: Docker user setup
+      user:
+        name: "tester"
+        append: yes
+        groups:
+          - sudo
+          - docker
